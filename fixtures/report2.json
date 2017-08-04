@@ -1,0 +1,279 @@
+{
+    "title": "Delivery: Live births in facilities last 4 quarters",
+    "headers": [
+        {
+            "name": "Organisation unit ID",
+            "column": "organisationunitid",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": true,
+            "meta": true
+        },
+        {
+            "name": "Organisation unit",
+            "column": "organisationunitname",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": false,
+            "meta": true
+        },
+        {
+            "name": "Organisation unit code",
+            "column": "organisationunitcode",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": true,
+            "meta": true
+        },
+        {
+            "name": "Organisation unit description",
+            "column": "organisationunitdescription",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": true,
+            "meta": true
+        },
+        {
+            "name": "Reporting month",
+            "column": "reporting_month_name",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": true,
+            "meta": true
+        },
+        {
+            "name": "Organisation unit parameter",
+            "column": "param_organisationunit_name",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": true,
+            "meta": true
+        },
+        {
+            "name": "Organisation unit is parent",
+            "column": "organisation_unit_is_parent",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": true,
+            "meta": true
+        },
+        {
+            "name": "Live births Jul to Sep 2016",
+            "column": "live births_quarter1",
+            "valueType": "NUMBER",
+            "type": "java.lang.Double",
+            "hidden": false,
+            "meta": false
+        },
+        {
+            "name": "Live births Oct to Dec 2016",
+            "column": "live births_quarter2",
+            "valueType": "NUMBER",
+            "type": "java.lang.Double",
+            "hidden": false,
+            "meta": false
+        },
+        {
+            "name": "Live births Jan to Mar 2017",
+            "column": "live births_quarter3",
+            "valueType": "NUMBER",
+            "type": "java.lang.Double",
+            "hidden": false,
+            "meta": false
+        },
+        {
+            "name": "Live births Apr to Jun 2017",
+            "column": "live births_quarter4",
+            "valueType": "NUMBER",
+            "type": "java.lang.Double",
+            "hidden": false,
+            "meta": false
+        }
+    ],
+    "width": 11,
+    "height": 14,
+    "rows": [
+        [
+            "jNb63DIHuwU",
+            "Baoma Station CHP",
+            "OU_573",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "30.0",
+            "31.0",
+            "16.0",
+            "37.0"
+        ],
+        [
+            "WAjjFMDJKcx",
+            "Blamawo MCHP",
+            "OU_73727",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "35.0",
+            "35.0",
+            "43.0",
+            "45.0"
+        ],
+        [
+            "ZpE2POxvl9P",
+            "Faabu CHP",
+            "OU_574",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "8.0",
+            "11.0",
+            "28.0",
+            ""
+        ],
+        [
+            "TSyzvBiovKh",
+            "Gerehun CHC",
+            "OU_576",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "143.0",
+            "113.0",
+            "124.0",
+            "134.0"
+        ],
+        [
+            "azRICFoILuh",
+            "Golu MCHP",
+            "OU_577",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "18.0",
+            "11.0",
+            "28.0",
+            "24.0"
+        ],
+        [
+            "Umh4HKqqFp6",
+            "Jembe CHC",
+            "OU_578",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "121.0",
+            "84.0",
+            "122.0",
+            "152.0"
+        ],
+        [
+            "RzgSFJ9E46G",
+            "Jormu MCHP",
+            "OU_579",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "19.0",
+            "14.0",
+            "31.0",
+            "28.0"
+        ],
+        [
+            "egv5Es0QlQP",
+            "Kigbai MCHP",
+            "OU_580",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "11.0",
+            "5.0",
+            "12.0",
+            "8.0"
+        ],
+        [
+            "pMEnu7BjqMz",
+            "Kpumbu MCHP",
+            "OU_678885",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "25.0",
+            "15.0",
+            "8.0",
+            "18.0"
+        ],
+        [
+            "EuoA3Crpqts",
+            "Mbundorbu MCHP",
+            "OU_581",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "23.0",
+            "23.0",
+            "18.0",
+            "19.0"
+        ],
+        [
+            "KfUCAQoOIae",
+            "PelewahunBaomaMCHP",
+            "OU_24767",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "12.0",
+            "18.0",
+            "20.0",
+            "23.0"
+        ],
+        [
+            "bG0PlyD0iP3",
+            "Tugbebu CHP",
+            "OU_586",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "22.0",
+            "16.0",
+            "14.0",
+            "16.0"
+        ],
+        [
+            "AnXoUM1tfNT",
+            "Yakaji MCHP",
+            "OU_583",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "31.0",
+            "25.0",
+            "47.0",
+            "25.0"
+        ],
+        [
+            "nX05QLraDhO",
+            "Yamandu CHC",
+            "OU_585",
+            "",
+            "Jul to Sep 2017",
+            "",
+            "No",
+            "58.0",
+            "54.0",
+            "27.0",
+            "41.0"
+        ]
+    ]
+}

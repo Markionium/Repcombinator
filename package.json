@@ -1,0 +1,14 @@
+{
+  "name": "repcombinator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.10.0",
+    "jest": "^20.0.4"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "http-server -p 8083"
+  }
+}

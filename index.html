@@ -1,0 +1,29 @@
+<input placeholder="Add report UID's comma separated" />
+<div>Try: GAfj7O21i26, osMFFm0FzWO</div>
+<button>Combine!</button>
+<div id="error"></div>
+<div id="report">
+
+</div>
+
+<script src="./src/Repcombinator.js"></script>
+<script>
+    document.querySelector('button')
+        .addEventListener('click', () => {
+            const reportElement = document.querySelector('#report');
+            reportElement.innerHTML = '';
+            const errorElement = document.querySelector('#error');
+            errorElement.innerHtml = '';
+            const uids = document.querySelector('input').value.split(',').map(v => v.trim());
+            
+            const repcombinator = Repcombinator({ apiUrl: 'https://play.dhis2.org/dev/api', headers: { Authorization: `Basic ${btoa('admin:district')}` } })
+            repcombinator
+                .getCombinedReportForReportUids(uids)
+                .then((report) => {
+                    repcombinator.renderer.into('#report').render(report);
+                })
+                .catch((error) => {
+                    errorElement.textContent = error.message;
+                });
+        });
+</script>
