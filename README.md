@@ -1,5 +1,6 @@
 # Repcombinator for DHIS2
 
+[![Build Status](https://travis-ci.org/Markionium/Repcombinator.svg?branch=master)](https://travis-ci.org/Markionium/Repcombinator)
 [![npm version](https://badge.fury.io/js/repcombinator.svg)](https://badge.fury.io/js/repcombinator)
 [![Coverage Status](https://coveralls.io/repos/github/Markionium/Repcombinator/badge.svg?branch=master)](https://coveralls.io/github/Markionium/Repcombinator?branch=master)
 
