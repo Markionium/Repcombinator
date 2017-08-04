@@ -1,5 +1,8 @@
 # Repcombinator for DHIS2
 
+[![npm version](https://badge.fury.io/js/repcombinator.svg)](https://badge.fury.io/js/repcombinator)
+[![Coverage Status](https://coveralls.io/repos/github/Markionium/Repcombinator/badge.svg?branch=master)](https://coveralls.io/github/Markionium/Repcombinator?branch=master)
+
 ## How do i start Repcombinating?
 
 Take the `Repcombinator.js` file and include it in your html page.

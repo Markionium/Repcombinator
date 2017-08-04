@@ -25,14 +25,12 @@ describe('Repcombinator renderer', () => {
             expect(() => repcombinator.renderer.into('div#myReports')).toThrow('Selector div#myReports does not match any elements');
         });
 
-        describe('headers', () => {
-            it('should render the headers into the document', () => {
-                repcombinator.renderer
-                    .into('div#reports')
-                    .render(combinedReportFixture);
+        it('should render the full report into the document', () => {
+            repcombinator.renderer
+                .into('div#reports')
+                .render(combinedReportFixture);
 
-                expect(document.querySelector('#reports').innerHTML).toMatchSnapshot();
-            });
+            expect(document.querySelector('#reports').innerHTML).toMatchSnapshot();
         });
     });
 });

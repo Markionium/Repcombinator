@@ -47,7 +47,13 @@
 
 		function renderHeader(report) {
 			const headerCells = report.order
-				.map(headerName => createNode('th.report__header__name', [report.headers[headerName].name]));
+				.map(headerName => {
+					const header = report.headers[headerName];
+					const isHidden = header.hidden;
+					const nodeSelector = `th.report__header__name${isHidden ? '.report__header__name--hidden' : ''}`;
+
+					return createNode(nodeSelector, [header.name]);
+				});
 
 			return createNode('thead', [
 				createNode('tr.report__header', headerCells)
@@ -58,7 +64,13 @@
 			const rows = report.rows
 				.map(row => {
 					const cells = report.order
-						.map(headerName => createNode('td.report__row__cell', [row[headerName]]));
+						.map(headerName => {
+							const header = report.headers[headerName];
+							const isHidden = header.hidden;
+							const nodeSelector = `td.report__row__cell${isHidden ? '.report__row__cell--hidden' : ''}`;
+
+							return createNode(nodeSelector, [row[headerName]])
+						});
 
 					return createNode('tr.report__row', cells);
 				});
