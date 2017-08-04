@@ -102,7 +102,7 @@
 
     function Repcombinator(options) {
 		// Options
-		const API_URL = (options && options.apiUrl) || '../api/';
+		const API_URL = (options && options.apiUrl) || '../api';
 		const HEADERS = assign(
 			{ 'content-type': 'application/json' },
 			options && options.headers
