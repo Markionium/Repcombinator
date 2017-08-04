@@ -1,29 +1,96 @@
-<input placeholder="Add report UID's comma separated" />
-<div>Try: GAfj7O21i26, osMFFm0FzWO</div>
-<button>Combine!</button>
-<div id="error"></div>
-<div id="report">
+<!doctype html>
+<html>
+    <head>
+        <style>
+            .report-uids {
+                display: flex;
+                flex-direction: row;
+            }
 
-</div>
+            .report-uids__input {
+                flex: 1 1 75%;
+                display: flex;
+                flex-direction: column;
+            }
 
-<script src="./dist/Repcombinator.js"></script>
-<script>
-    document.querySelector('button')
-        .addEventListener('click', () => {
-            const reportElement = document.querySelector('#report');
-            reportElement.innerHTML = '';
-            const errorElement = document.querySelector('#error');
-            errorElement.innerHtml = '';
-            const uids = document.querySelector('input').value.split(',').map(v => v.trim());
-            
-            const repcombinator = Repcombinator({ apiUrl: 'https://play.dhis2.org/dev/api', headers: { Authorization: `Basic ${btoa('admin:district')}` } })
-            repcombinator
-                .getCombinedReportForReportUids(uids)
-                .then((report) => {
-                    repcombinator.renderer.into('#report').render(report);
-                })
-                .catch((error) => {
-                    errorElement.textContent = error.message;
+            .report-uids__input input {
+                width: 100%;
+                font-size: 1em;
+            }
+
+            .report-uids__button {
+                flex: 1 1 25%;
+                font-size: 1em;
+            }
+
+            .try {
+                display: flex;
+            }
+
+            .try__button {
+                width: 100%;
+            }
+        </style>
+    <body>
+        <div class="server">
+            <input class="server__location" placeholder="Server location" value="https://play.dhis2.org/dev/api" />
+            <input class="server__username" placeholder="Username" value="admin" />
+            <input class="server__password" placeholder="password" value="district" />
+        </div>
+        <div class="report-uids">
+            <input class="report-uids__input" placeholder="Add report UID's comma separated (Try: GAfj7O21i26, osMFFm0FzWO)" />
+            <button class="report-uids__button">Combine!</button>
+        </div>
+        <div class="try">
+            <button class="try__button">Try: GAfj7O21i26, osMFFm0FzWO)</button>
+        </div>
+
+        <div id="error"></div>
+
+        <div id="report"></div>
+
+        <script src="https://unpkg.com/promise-polyfill@6.0.2/promise.js"></script>
+        <script src="https://unpkg.com/whatwg-fetch@2.0.3/fetch.js"></script>
+        <script src="./dist/Repcombinator.js"></script>
+        <script>
+            function getServerDetails() {
+                return {
+                    server: document.querySelector('.server__location').value,
+                    username: document.querySelector('.server__username').value,
+                    password: document.querySelector('.server__password').value,
+                };
+            }
+
+            function fireTheCombinator(uids) {
+                const reportElement = document.querySelector('#report');
+                reportElement.innerHTML = '';
+                const errorElement = document.querySelector('#error');
+                errorElement.textContent = '';
+
+                const serverDetails = getServerDetails();
+                console.log(serverDetails);
+                const auth = `${serverDetails.username}:${serverDetails.password}`;
+
+                const repcombinator = Repcombinator({ apiUrl: serverDetails.server, headers: { Authorization: `Basic ${btoa(auth)}` } })
+                    repcombinator
+                        .getCombinedReportForReportUids(uids)
+                        .then((report) => {
+                            repcombinator.renderer.into('#report').render(report);
+                        })
+                        .catch((error) => {
+                            errorElement.textContent = error.message;
+                        });
+            }
+
+            document.querySelector('button.report-uids__button')
+                .addEventListener('click', () => {
+                    const uids = document.querySelector('input').value.split(',').map(v => v.trim());
+
+                    fireTheCombinator(uids);
                 });
-        });
-</script>
+
+            document.querySelector('button.try__button')
+                .addEventListener('click', () => {
+                    fireTheCombinator(['GAfj7O21i26', 'osMFFm0FzWO']);
+                });
+        </script>
