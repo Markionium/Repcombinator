@@ -52,3 +52,11 @@ repcombinator
 To make it work on IE we'll need to add a `fetch` and a `Promise` polyfill.
 
 https://github.com/github/fetch#installation
+
+# CDN
+
+```html
+<script src="https://unpkg.com/promise-polyfill@6.0.2/promise.js"></script>
+<script src="https://unpkg.com/whatwg-fetch@2.0.3/fetch.js"></script>
+<script src="https://unpkg.com/repcombinator@1.0.0/dist/Repcombinator.js"></script>
+```
