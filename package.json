@@ -9,6 +9,18 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "http-server -p 8083"
+    "test:coverage": "jest --coverage",
+    "prestart": "yarn build",
+    "start": "http-server -p 8083",
+    "prebuild": "mkdir dist || true ",
+    "build": "NODE_ENV=production babel src/Repcombinator.js --out-file dist/Repcombinator.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-babili": "^0.1.4",
+    "babel-preset-env": "^1.6.0"
+  },
+  "jest": {
+    "transform": {}
   }
 }

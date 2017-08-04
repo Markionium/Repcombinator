@@ -1,40 +1,38 @@
 (function (isBrowser, document) {
-	'use strict';
-
-	function isString(value) {
+    function isString(value) {
 		return typeof value === 'string';
 	}
 
-	function identity(value) {
+    function identity(value) {
 		return value;
 	}
 
-	// =======================================================================================
+    // =======================================================================================
 
-	function RepcombinatorRenderer(document, renderOptions) {
+    function RepcombinatorRenderer(document, renderOptions) {
 		function createNode(selector, children) {
 			if (!isString(selector)) {
 				throw new Error('Selector for creating a node can not be empty');
 			}
 
-			var classes = selector.split('.');
-			var tagParts = classes.shift().split('#');
-			var tagName = tagParts.shift();
-			var id = tagParts.shift();
+			const classes = selector.split('.');
+			const tagParts = classes.shift().split('#');
+			const tagName = tagParts.shift();
+			const id = tagParts.shift();
 
 			if (!tagName) {
 				throw new Error('No tag name found');
 			}
 
-			var node = document.createElement(tagName);
+			const node = document.createElement(tagName);
 			classes
-				.forEach(function (className) {
+				.forEach(className => {
 					node.classList.add(className);
 				});
 
 			(children || [])
 				.filter(identity)
-				.forEach(function (child) {
+				.forEach(child => {
 					if (isString(child)) {
 						node.appendChild(document.createTextNode(child));
 					} else {
@@ -48,10 +46,8 @@
 		// =======================================================================================
 
 		function renderHeader(report) {
-			var headerCells = report.order
-				.map(function (headerName) {
-					return createNode('th.report__header__name', [report.headers[headerName].name])
-				});
+			const headerCells = report.order
+				.map(headerName => createNode('th.report__header__name', [report.headers[headerName].name]));
 
 			return createNode('thead', [
 				createNode('tr.report__header', headerCells)
@@ -59,12 +55,10 @@
 		}
 
 		function renderBody(report) {
-			var rows = report.rows
-				.map(function (row) {
-					var cells = report.order
-						.map(function (headerName) {
-							return createNode('td.report__row__cell', [row[headerName]]);
-						});
+			const rows = report.rows
+				.map(row => {
+					const cells = report.order
+						.map(headerName => createNode('td.report__row__cell', [row[headerName]]));
 
 					return createNode('tr.report__row', cells);
 				});
@@ -92,40 +86,40 @@
 		}
 
 		function into(selector) {
-			var targetElement = document.querySelector(selector);
+			const targetElement = document.querySelector(selector);
 
 			if (!targetElement) {
-				throw new Error('Selector ' + selector.toString() + ' does not match any elements');
+				throw new Error(`Selector ${selector.toString()} does not match any elements`);
 			}
 
 			return Renderer(targetElement);
 		}
 
 		return {
-			into: into,
+			into,
 		};
 	}
 
-	function Repcombinator(options) {
+    function Repcombinator(options) {
 		// Options
-		var API_URL = (options && options.apiUrl) || '../api/';
-		var HEADERS = assign(
+		const API_URL = (options && options.apiUrl) || '../api/';
+		const HEADERS = assign(
 			{ 'content-type': 'application/json' },
 			options && options.headers
 		);
 
 		// =============================================
 
-		var isArray = Array.isArray;
+		const isArray = Array.isArray;
 
 		function assign(target) {
-			var sources = Array.prototype.slice.call(arguments);
+			const sources = Array.prototype.slice.call(arguments);
 
 			sources
 				.filter(identity)
-				.forEach(function (source) {
+				.forEach(source => {
 					Object.keys(source)
-						.forEach(function (key) {
+						.forEach(key => {
 							target[key] = source[key]
 						});
 				});
@@ -134,9 +128,7 @@
 		}
 
 		function nInList(n) {
-			return function (list) {
-				return list && list[n];
-			};
+			return list => list && list[n];
 		}
 
 		function map(mapper, iterable) {
@@ -144,40 +136,34 @@
 				return iterable.map(mapper);
 			}
 
-			return function (iterable) {
-				return map(mapper, iterable);
-			};
+			return iterable => map(mapper, iterable);
 		}
 
-		var first = nInList(0);
-		var second = nInList(1);
+		const first = nInList(0);
+		const second = nInList(1);
 
 		function isEqual(first, second) {
 			if (second) {
 				return first === second;
 			}
 
-			return function (second) {
-				return isEqual(first, second);
-			};
+			return second => isEqual(first, second);
 		}
 
 		function getObjectEntries(obj) {
 			return Object
 				.keys(obj)
-				.map(function (key) {
-					return [key, obj[key]]
-				});
+				.map(key => [key, obj[key]]);
 		}
 
 		function compose() {
 			function callWithResult(result, func, index) {
-				return [func.apply(null, result)];
+				return [func(...result)];
 			}
-			var funcs = Array.prototype.slice.call(arguments);
+			const funcs = Array.prototype.slice.call(arguments);
 
 			return function () {
-				var firstArgs = Array.prototype.slice.call(arguments);
+				const firstArgs = Array.prototype.slice.call(arguments);
 
 				return funcs
 					.reverse()
@@ -189,16 +175,12 @@
 
 		function removeEmptyColumns(report, emptyColumns) {
 			function indexNotIn(emptyColumns) {
-				return function (_, index) {
-					return isEqual(emptyColumns.indexOf(index), -1);
-				}
+				return (_, index) => isEqual(emptyColumns.indexOf(index), -1)
 			}
 
 
 			report.headers = report.headers && report.headers.filter(indexNotIn(emptyColumns));
-			report.rows = map(function (row) {
-				return row.filter(indexNotIn(emptyColumns));
-			})(report.rows || []);
+			report.rows = map(row => row.filter(indexNotIn(emptyColumns)))(report.rows || []);
 
 			return report;
 		}
@@ -211,16 +193,12 @@
 
 		function getEmptyColumns(rows) {
 			const emptyRowMap = rows
-				.map(function (rowValues) {
-					return (rowValues || [])
-						.reduce(function (acc, value, index) {
-							return !value ? acc.concat(index) : acc
-						}, [])
-				})
+				.map(rowValues => (rowValues || [])
+                .reduce((acc, value, index) => !value ? acc.concat(index) : acc, []))
 				.reduce(
-				function (acc, indexes) {
+				(acc, indexes) => {
 					indexes
-						.forEach(function (index) {
+						.forEach(index => {
 							if (acc[index]) {
 								acc[index] += 1;
 							} else {
@@ -235,43 +213,37 @@
 			return getObjectEntries(emptyRowMap)
 				.filter(compose(isEqual(rows.length), second))
 				.map(first)
-				.map(function (num) {
-					return parseInt(num, 10)
-				});
+				.map(num => parseInt(num, 10));
 		}
 
 		function createObjectRowsForReport(report) {
-			var headers = (report.headers || {});
-			var reportClone = {};
+			const headers = (report.headers || {});
+			const reportClone = {};
 
 			Object.keys(report)
-				.filter(function (key) {
-					return ['rows', 'columns'].indexOf(key) === -1;
-				})
-				.forEach(function (key) {
+				.filter(key => !['rows', 'columns'].includes(key))
+				.forEach(key => {
 					reportClone[key] = report[key];
 				});
 
 			if (!reportClone.headersMap) {
 				reportClone.headerOrder = headers
-					.map(function (header) {
-						return header.column;
-					});
+					.map(header => header.column);
 
 				reportClone.headersMap = headers
-					.reduce(function (acc, value) {
+					.reduce((acc, value) => {
 						acc[value.column] = value;
 						return acc;
 					}, {});
 			}
 
 			reportClone.objectRows = (report.rows || [])
-				.map(function (rowValues) {
-					var rowObject = {};
+				.map(rowValues => {
+					const rowObject = {};
 
 					rowValues
 						.filter(identity)
-						.forEach(function (value, index) {
+						.forEach((value, index) => {
 							if (headers[index]) {
 								rowObject[headers[index].column] = value;
 							}
@@ -285,19 +257,17 @@
 
 		function combineObjectReports(objectReports) {
 			return objectReports
-				.reduce(function (acc, report) {
+				.reduce((acc, report) => {
 					acc.rows = acc.rows.concat(report.objectRows);
 
 					acc.order = acc.order.concat(
 						(report.headerOrder || [])
-							.filter(function (value) {
-								return acc.order.indexOf(value) === -1;
-							})
+							.filter(value => !acc.order.includes(value))
 					);
 
 					Object
 						.keys(report.headersMap)
-						.forEach(function (headerKey) {
+						.forEach(headerKey => {
 							acc.headers[headerKey] = report.headersMap[headerKey];
 						});
 
@@ -334,7 +304,7 @@
 				return Promise.reject(new Error(`A valid uid should be provided to requestReport, got (${uid})`));
 			}
 
-			var requestInit = {
+			const requestInit = {
 				headers: HEADERS,
 				redirect: 'error',
 				credentials: 'include'
@@ -359,18 +329,18 @@
 		}
 
 		return {
-			combineTableResults: combineTableResults,
-			getObjectBasedReport: getObjectBasedReport,
-			requestReports: requestReports,
-			requestReport: requestReport,
-			getCombinedReportForReportUids: getCombinedReportForReportUids,
+			combineTableResults,
+			getObjectBasedReport,
+			requestReports,
+			requestReport,
+			getCombinedReportForReportUids,
 			renderer: RepcombinatorRenderer(document, options && options.render)
 		};
 	}
 
-	if (isBrowser) {
+    if (isBrowser) {
 		window.Repcombinator = Repcombinator;
 	} else {
 		module.exports = Repcombinator;
 	}
-})('document' in this, document);
+})(typeof module === 'undefined', document);

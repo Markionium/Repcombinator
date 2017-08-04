@@ -1,0 +1,21 @@
+{
+    "env": {
+        "production": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "node": "current",
+                            "browsers": "last 2 chrome versions, ie 10"
+                        }
+                    }
+                ],
+                ["babili", {
+                    "keepFnName": true,
+                    "evaluate": false
+                }]
+            ]
+        }
+    }
+}
